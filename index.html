@@ -1,0 +1,1119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#f1ead7" />
+<title>CW POTA · A Field Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400;9..144,500;9..144,700;9..144,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Archivo:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" media="print" onload="this.media='all'" />
+<noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400;9..144,500;9..144,700;9..144,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Archivo:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+</noscript>
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #f1ead7;
+    --paper-2: #e7dfc6;
+    --paper-edge: #d7cba6;
+    --ink: #1d2a1a;
+    --ink-soft: #2d3b26;
+    --moss: #3f5a2e;
+    --olive: #6a7a3a;
+    --tan: #b9966a;
+    --tan-deep: #8a6a3f;
+    --rule: #7d7046;
+    --rule-soft: #a89a6e;
+    --brick: #9a4a2a;
+    --fr: "Fraunces", "Source Serif 4", Georgia, serif;
+    --ss: "Source Serif 4", Georgia, serif;
+    --ar: "Archivo", ui-sans-serif, system-ui, sans-serif;
+    --mn: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html {
+    -webkit-text-size-adjust: 100%;
+    background: var(--paper);
+  }
+  body {
+    margin: 0;
+    font-family: var(--ss);
+    font-optical-sizing: auto;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink);
+    background-color: var(--paper);
+    /* Very subtle paper grain */
+    background-image:
+      radial-gradient(rgba(61,48,20,0.04) 1px, transparent 1px),
+      radial-gradient(rgba(61,48,20,0.03) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    min-height: 100vh;
+  }
+
+  ::selection { background: var(--moss); color: var(--paper); }
+
+  .sheet {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 22px 120px;
+    position: relative;
+  }
+
+  /* ===== Page plate (masthead) ===== */
+  .plate {
+    border: 1.5px solid var(--ink);
+    padding: 22px 20px 18px;
+    position: relative;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 6px, rgba(29,42,26,0.04) 6px 7px);
+  }
+  .plate::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 0.5px solid var(--ink);
+    pointer-events: none;
+  }
+  .plate-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .plate-row .dot { color: var(--tan-deep); }
+  h1.title {
+    font-family: var(--fr);
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-weight: 900;
+    letter-spacing: -0.015em;
+    font-size: clamp(42px, 7.4vw, 76px);
+    line-height: 0.95;
+    margin: 14px 0 6px;
+    color: var(--ink);
+  }
+  h1.title em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--moss);
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+  .subtitle {
+    font-family: var(--fr);
+    font-variation-settings: "opsz" 24;
+    font-style: italic;
+    font-size: clamp(16px, 2.1vw, 20px);
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 4px 0 0;
+  }
+  .plate-meta {
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 0.5px solid var(--rule);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .plate-meta b {
+    display: block;
+    font-family: var(--ss);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink);
+    margin-top: 2px;
+  }
+
+  /* ===== Section heading ===== */
+  .chapter {
+    margin-top: 54px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: end;
+    gap: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--ink);
+    position: relative;
+  }
+  .chapter::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -4px;
+    height: 0.5px;
+    background: var(--ink);
+  }
+  .chapter .num {
+    font-family: var(--fr);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 52px;
+    line-height: 0.9;
+    color: var(--tan-deep);
+    font-variation-settings: "opsz" 144;
+  }
+  .chapter h2 {
+    font-family: var(--fr);
+    font-variation-settings: "opsz" 96, "SOFT" 30;
+    font-weight: 700;
+    font-size: clamp(26px, 4vw, 40px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .chapter .folio {
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-bottom: 6px;
+  }
+
+  .lede {
+    font-family: var(--fr);
+    font-variation-settings: "opsz" 36, "SOFT" 100;
+    font-style: italic;
+    font-size: clamp(17px, 2.1vw, 21px);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin: 22px 0 18px;
+    max-width: 62ch;
+  }
+  p { margin: 0 0 14px; }
+  p.body { max-width: 64ch; }
+
+  /* ===== Cards ===== */
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  @media (max-width: 680px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    border: 1px solid var(--ink);
+    padding: 20px 20px 22px;
+    background: var(--paper-2);
+    position: relative;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 0.5px solid var(--rule);
+    pointer-events: none;
+  }
+  .card h3 {
+    font-family: var(--fr);
+    font-weight: 700;
+    font-variation-settings: "opsz" 60;
+    font-size: 26px;
+    line-height: 1;
+    margin: 6px 0 4px;
+    color: var(--ink);
+  }
+  .card .role {
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--tan-deep);
+  }
+  .card p { margin: 10px 0 0; font-size: 16px; }
+  .card ul {
+    margin: 12px 0 0;
+    padding-left: 18px;
+  }
+  .card li { margin-bottom: 6px; font-size: 15.5px; }
+  .card .tag {
+    display: inline-block;
+    font-family: var(--mn);
+    font-size: 12px;
+    padding: 2px 8px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    margin-top: 14px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ===== The Exchange ===== */
+  .qso {
+    margin-top: 26px;
+    border: 1.5px solid var(--ink);
+    background: var(--paper-2);
+  }
+  .qso-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    padding: 10px 16px;
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+  }
+  .qso-head .freq { color: var(--tan); }
+
+  .line {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    border-top: 0.5px dashed var(--rule);
+  }
+  .line:first-of-type { border-top: 0; }
+  .line-label {
+    padding: 16px 14px;
+    border-right: 0.5px dashed var(--rule);
+    background: rgba(190,150,95,0.1);
+  }
+  .line-label .who {
+    font-family: var(--ar);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--tan-deep);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .line-label .who.act { color: var(--moss); }
+  .line-label .call {
+    font-family: var(--mn);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .line-body { padding: 16px 18px 18px; }
+
+  .cw {
+    font-family: var(--mn);
+    font-weight: 700;
+    font-size: clamp(15px, 2.2vw, 19px);
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .cw .hl { color: var(--brick); }
+  .cw .prosign {
+    position: relative;
+    padding: 0 2px;
+  }
+  .cw .prosign::before,
+  .cw .prosign::after {
+    content: "";
+    display: inline-block;
+    width: 0.35em;
+    height: 0.5em;
+    border-top: 1.5px solid var(--ink);
+    position: relative;
+    top: -0.25em;
+  }
+
+  .gloss {
+    margin-top: 10px;
+    font-family: var(--ss);
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    max-width: 62ch;
+  }
+
+  .chips {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chip {
+    font-family: var(--mn);
+    font-size: 11.5px;
+    padding: 3px 8px;
+    background: var(--paper);
+    border: 0.5px solid var(--rule);
+    color: var(--ink);
+  }
+  .chip b { color: var(--moss); font-weight: 700; }
+
+  /* Margin aside / variants */
+  .aside {
+    margin-top: 22px;
+    padding: 14px 16px;
+    border-left: 2px solid var(--moss);
+    background: rgba(63,90,46,0.06);
+    font-size: 15px;
+    max-width: 66ch;
+  }
+  .aside b {
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--moss);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .aside .cw { font-size: 14.5px; font-weight: 500; }
+
+  /* ===== Glossary grid ===== */
+  .gloss-grid {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--ink);
+    background: var(--paper-2);
+  }
+  @media (max-width: 780px) { .gloss-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px) { .gloss-grid { grid-template-columns: 1fr; } }
+
+  .gl {
+    padding: 12px 14px;
+    border-right: 0.5px dashed var(--rule);
+    border-bottom: 0.5px dashed var(--rule);
+  }
+  .gl:last-child { border-right: 0; }
+  .gl .k {
+    font-family: var(--mn);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--brick);
+    display: inline-block;
+    min-width: 52px;
+  }
+  .gl .v {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+
+  /* ===== Minimum viable copy (three things) ===== */
+  .min-copy {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 720px) { .min-copy { grid-template-columns: 1fr; } }
+
+  .mc {
+    border: 1px solid var(--ink);
+    background: var(--paper-2);
+    padding: 16px 16px 18px;
+    position: relative;
+  }
+  .mc::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 0.5px solid var(--rule-soft);
+    pointer-events: none;
+  }
+  .mc .mc-n {
+    font-family: var(--fr);
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 34px;
+    line-height: 1;
+    color: var(--tan-deep);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .mc h4 {
+    font-family: var(--fr);
+    font-weight: 600;
+    font-variation-settings: "opsz" 36;
+    font-size: 17px;
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .mc p {
+    font-size: 14.5px;
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  /* Subheading inside a chapter */
+  h3.sub {
+    margin: 34px 0 10px;
+    font-family: var(--fr);
+    font-variation-settings: "opsz" 48, "SOFT" 30;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--moss);
+    padding-bottom: 6px;
+    border-bottom: 0.5px solid var(--rule-soft);
+    max-width: 62ch;
+  }
+
+  /* Links */
+  a {
+    color: var(--moss);
+    text-decoration: none;
+    border-bottom: 1px solid var(--olive);
+    padding-bottom: 1px;
+    transition: background 0.15s ease;
+  }
+  a:hover {
+    background: rgba(63,90,46,0.08);
+  }
+
+  /* ===== Frequency table ===== */
+  .freqs {
+    margin-top: 18px;
+    border: 1px solid var(--ink);
+    background: var(--paper-2);
+  }
+  .freqs table { width: 100%; border-collapse: collapse; }
+  .freqs th, .freqs td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 0.5px dashed var(--rule);
+    font-size: 15px;
+  }
+  .freqs th {
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    border-bottom: 0;
+  }
+  .freqs td.m { font-family: var(--mn); font-weight: 700; }
+  .freqs tr:last-child td { border-bottom: 0; }
+  .freqs tr.hero td {
+    background: rgba(185,150,106,0.22);
+    font-weight: 600;
+  }
+  .freqs tr.hero td:first-child { color: var(--ink); position: relative; }
+  .freqs tr.hero td.m { color: var(--moss); }
+  .freqs .star {
+    display: inline-block;
+    margin-left: 6px;
+    color: var(--tan-deep);
+    font-size: 13px;
+    vertical-align: 1px;
+  }
+
+  /* ===== Step list ===== */
+  .steps { list-style: none; padding: 0; margin: 22px 0 0; counter-reset: step; }
+  .steps > li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 10px;
+    padding: 14px 0;
+    border-top: 0.5px solid var(--rule-soft);
+  }
+  .steps > li:first-child { border-top: 0; padding-top: 4px; }
+  .steps > li::before {
+    content: "№ " counter(step, decimal-leading-zero);
+    font-family: var(--ar);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--tan-deep);
+    padding-top: 4px;
+  }
+  .steps h4 {
+    font-family: var(--fr);
+    font-weight: 600;
+    font-variation-settings: "opsz" 36;
+    font-size: 19px;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  .steps p { font-size: 15.5px; margin: 0; max-width: 60ch; }
+  .steps code {
+    font-family: var(--mn);
+    font-size: 13.5px;
+    background: var(--paper-2);
+    padding: 1px 6px;
+    border: 0.5px solid var(--rule-soft);
+  }
+
+  /* Logger list within a step */
+  ul.loggers {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    border-left: 1.5px solid var(--rule-soft);
+  }
+  ul.loggers li {
+    display: block;
+    padding: 9px 0 9px 14px;
+    margin: 0;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    border: none;
+    position: relative;
+  }
+  ul.loggers li + li {
+    border-top: 0.5px dashed var(--rule-soft);
+  }
+  ul.loggers li b {
+    color: var(--ink);
+  }
+
+  /* ===== Log sample ===== */
+  .logbook {
+    margin-top: 22px;
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+    overflow-x: auto;
+  }
+  .logbook table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--mn);
+    font-size: 13.5px;
+    min-width: 560px;
+  }
+  .logbook th, .logbook td {
+    padding: 9px 10px;
+    border-bottom: 0.5px dashed var(--rule);
+    text-align: left;
+    white-space: nowrap;
+  }
+  .logbook th {
+    font-family: var(--ar);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--moss);
+  }
+  .logbook tr:last-child td { border-bottom: 0; }
+  .logbook td:first-child {
+    color: var(--tan-deep);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ===== Dit-dah divider ===== */
+  .morse-rule {
+    margin: 64px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--rule);
+  }
+  .morse-rule hr {
+    border: 0;
+    border-top: 0.5px solid var(--rule);
+    flex: 1;
+    margin: 0;
+  }
+  .morse-rule .m {
+    font-family: var(--mn);
+    font-size: 13px;
+    letter-spacing: 0.5em;
+    color: var(--tan-deep);
+  }
+
+  /* ===== Colophon ===== */
+  .colophon {
+    margin: 36px auto 0;
+    max-width: 46ch;
+    text-align: center;
+    font-family: var(--fr);
+    font-variation-settings: "opsz" 36, "SOFT" 80;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .colophon p { margin: 0 0 18px; }
+  .colophon .sign b {
+    font-style: normal;
+    font-variation-settings: "opsz" 36, "SOFT" 30;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  .colophon .correspondence {
+    padding: 16px 0;
+    border-top: 0.5px solid var(--rule-soft);
+    border-bottom: 0.5px solid var(--rule-soft);
+  }
+  .colophon .correspondence a {
+    font-style: normal;
+    font-family: var(--ss);
+    font-weight: 600;
+    color: var(--moss);
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    border-bottom-width: 1px;
+  }
+  .colophon .dedication {
+    font-size: 14.5px;
+    max-width: 44ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .colophon .dedication a {
+    font-style: normal;
+    border-bottom-width: 0.5px;
+    padding-bottom: 0;
+  }
+  .colophon .dits {
+    font-family: var(--mn);
+    font-size: 14px;
+    color: var(--tan-deep);
+    letter-spacing: 0.2em;
+    margin-top: 4px;
+  }
+
+  /* ===== Footer ===== */
+  footer {
+    margin-top: 70px;
+    padding-top: 20px;
+    border-top: 1.5px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 14px;
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  footer em {
+    font-family: var(--fr);
+    font-style: italic;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  /* dropcap for chapter 1 */
+  .dropcap::first-letter {
+    font-family: var(--fr);
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-weight: 900;
+    font-size: 5.2em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.04em 0.08em 0 0;
+    color: var(--moss);
+  }
+
+  /* small dingbat */
+  .dingbat {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--tan-deep);
+    transform: rotate(45deg);
+    margin: 0 4px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <!-- ===================== MASTHEAD ===================== -->
+  <header class="plate">
+    <div class="plate-row">
+      <span>Field Guide <span class="dot">◆</span> Vol. I</span>
+      <span>Parks on the Air <span class="dot">◆</span> Morse Mode</span>
+      <span>Edition 2026</span>
+    </div>
+    <h1 class="title">CW POTA<br/><em>a field manual</em></h1>
+    <p class="subtitle">Everything a Morse operator needs to activate a park, hunt a park, and submit the paperwork afterwards.</p>
+    <div class="plate-meta">
+      <div>For <b>Licensed Amateurs</b></div>
+      <div>Mode <b>CW · A1A</b></div>
+      <div>Program <b>parksontheair.com</b></div>
+    </div>
+  </header>
+
+  <!-- ===================== §1 WHAT IS POTA ===================== -->
+  <section>
+    <div class="chapter">
+      <span class="num">I.</span>
+      <h2>What is POTA?</h2>
+      <span class="folio">pp. 01</span>
+    </div>
+
+    <p class="lede">Parks on the Air is a year-round operating program where one operator sets up in a designated park and makes contacts with everyone else listening from home.</p>
+
+    <p class="body dropcap">Think of it as a standing invitation: pick a park from the registry (pota.app), go outside, put a radio on the air from inside the park's boundary, and work as many people as you can in one sitting. The operator in the park is the <b>activator</b>. Everyone chasing them is a <b>hunter</b>. Make ten or more contacts in a single day and the activator earns credit for that park; hunters rack up credit for every activator they catch.</p>
+
+    <p class="body">The program is free, global, and entirely built around voluntary log submissions. There are no mandatory exchange formats, no timing windows, no organizers on the air. Just operators, parks, and the honor system.</p>
+
+    <div class="aside">
+      <b>A note on terminology</b>
+      POTA officially uses "hunter." You will still hear "chaser" on the air — it's the SOTA (Summits on the Air) term and it leaked over. Either is fine; the program counts you the same.
+    </div>
+  </section>
+
+  <!-- ===================== §2 THE CAST ===================== -->
+  <section>
+    <div class="chapter">
+      <span class="num">II.</span>
+      <h2>The two roles</h2>
+      <span class="folio">pp. 02</span>
+    </div>
+
+    <p class="lede">You pick a side each time you sit down. Both are rewarding. Activators work harder; hunters get credit faster.</p>
+
+    <div class="cards">
+      <div class="card">
+        <span class="role">Role 01 · The Activator</span>
+        <h3>Sets up in the park</h3>
+        <p>Drives (or hikes, or paddles) to a registered park, puts a wire in a tree, and runs a frequency calling CQ. Needs 10 valid contacts to "activate" the park for the day. Can activate the same park again the next UTC day.</p>
+        <ul>
+          <li>Picks the frequency, picks the pace.</li>
+          <li>Runs the exchange — gives signal report + state or province.</li>
+          <li>Logs every contact. Uploads the log after the activation.</li>
+        </ul>
+        <span class="tag">DE N1RWJ</span>
+      </div>
+      <div class="card">
+        <span class="role">Role 02 · The Hunter</span>
+        <h3>Works the park from home</h3>
+        <p>Watches the POTA spots page, hears an activator calling CQ, answers with a callsign and waits. Gets credit automatically once the activator's log is submitted and matches. No paperwork required.</p>
+        <ul>
+          <li>Finds activations on <code style="font-family:var(--mn);font-size:13px;">pota.app</code> or via RBN.</li>
+          <li>Sends callsign once, waits to be called back.</li>
+          <li>Returns signal report + state. That's it.</li>
+        </ul>
+        <span class="tag">W6JY</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== §3 THE EXCHANGE ===================== -->
+  <section>
+    <div class="chapter">
+      <span class="num">III.</span>
+      <h2>The exchange, line by line</h2>
+      <span class="folio">pp. 03</span>
+    </div>
+
+    <p class="lede">A single POTA QSO in CW takes less than thirty seconds on a quiet band. Here is one, decoded.</p>
+
+    <div class="qso">
+      <div class="qso-head">
+        <span>QSO № 001</span>
+        <span>14.058 MHz · 20m CW</span>
+        <span class="freq">1432z</span>
+      </div>
+
+      <!-- Line 1 -->
+      <div class="line">
+        <div class="line-label">
+          <span class="who act">Activator</span>
+          <span class="call">N1RWJ</span>
+        </div>
+        <div class="line-body">
+          <div class="cw">CQ CQ POTA <span class="hl">DE</span> N1RWJ <span class="hl">K</span></div>
+          <p class="gloss">"Calling anyone, this is a POTA station. This is N1RWJ. Over."</p>
+          <div class="chips">
+            <span class="chip"><b>CQ</b> general call</span>
+            <span class="chip"><b>POTA</b> qualifier — I'm in a park</span>
+            <span class="chip"><b>DE</b> "from"</span>
+            <span class="chip"><b>K</b> go ahead, any station</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Line 2 -->
+      <div class="line">
+        <div class="line-label">
+          <span class="who">Hunter</span>
+          <span class="call">W6JY</span>
+        </div>
+        <div class="line-body">
+          <div class="cw">W6JY</div>
+          <p class="gloss">Just the callsign. Once. Maybe twice in a pileup. That's the whole transmission.</p>
+          <div class="chips">
+            <span class="chip"><b>rule of thumb</b> never send your call more than twice</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Line 3 -->
+      <div class="line">
+        <div class="line-label">
+          <span class="who act">Activator</span>
+          <span class="call">N1RWJ</span>
+        </div>
+        <div class="line-body">
+          <div class="cw">W6JY <span class="hl">TU ES GM</span> UR <span class="hl">559 559</span> <span class="hl">RI RI</span> <span class="hl">BK</span></div>
+          <p class="gloss">"W6JY, thanks and good morning. You're 559. I'm in Rhode Island. Back to you."</p>
+          <div class="chips">
+            <span class="chip"><b>TU</b> thank you</span>
+            <span class="chip"><b>ES</b> and</span>
+            <span class="chip"><b>GM</b> good morning</span>
+            <span class="chip"><b>UR</b> you're / your</span>
+            <span class="chip"><b>559</b> RST report</span>
+            <span class="chip"><b>RI</b> state (sent twice for clarity)</span>
+            <span class="chip"><b>BK</b> break — your turn</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Line 4 -->
+      <div class="line">
+        <div class="line-label">
+          <span class="who">Hunter</span>
+          <span class="call">W6JY</span>
+        </div>
+        <div class="line-body">
+          <div class="cw"><span class="hl">BK RR TU ES GM</span> UR <span class="hl">579 579</span> <span class="hl">CA CA BK</span></div>
+          <p class="gloss">"Break, roger roger, thanks and good morning. You're 579. I'm in California. Back to you."</p>
+          <div class="chips">
+            <span class="chip"><b>BK</b> break</span>
+            <span class="chip"><b>RR</b> roger roger / copied</span>
+            <span class="chip"><b>579</b> report back to them</span>
+            <span class="chip"><b>CA</b> California</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Line 5 -->
+      <div class="line">
+        <div class="line-label">
+          <span class="who act">Activator</span>
+          <span class="call">N1RWJ</span>
+        </div>
+        <div class="line-body">
+          <div class="cw"><span class="hl">BK RR TU</span> CA <span class="hl">ES 73 EE</span></div>
+          <p class="gloss">"Break, got it, thanks. California. 73 — dit-dit."</p>
+          <div class="chips">
+            <span class="chip"><b>73</b> best regards</span>
+            <span class="chip"><b>EE</b> "dit dit" — the CW goodbye wave</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aside">
+      <b>Variant · the terse exchange</b>
+      Busy pileup? Weak signals? Strip it down. This is also perfectly valid:
+      <div class="cw" style="margin-top:8px;">CQ POTA DE N1RWJ K &nbsp;·&nbsp; W6JY &nbsp;·&nbsp; W6JY 559 RI &nbsp;·&nbsp; TU 579 CA &nbsp;·&nbsp; TU 73 EE</div>
+    </div>
+
+    <div class="aside">
+      <b>Where is the park reference?</b>
+      Nowhere — and that's on purpose. The hunter already knows the park from the spot on pota.app. Unlike SOTA, POTA does not require the park reference to be exchanged on the air. The activator's submitted log fills it in for everyone.
+    </div>
+  </section>
+
+  <!-- ===================== §4 YOU ALREADY KNOW ENOUGH ===================== -->
+  <section>
+    <div class="chapter">
+      <span class="num">IV.</span>
+      <h2>You already know enough</h2>
+      <span class="folio">pp. 04</span>
+    </div>
+
+    <p class="lede">Newcomers read through a decoded exchange and decide they aren't ready. They are. POTA CW is the most forgiving Morse environment you will ever find — slower, warmer, and designed for people learning on the air.</p>
+
+    <p class="body"><b>On speed.</b> Most POTA activators run between 15 and 20 words per minute. Some run slower on purpose — 12, even 10 WPM — when the bands are quiet. This is nothing like contesting. If an activator is going faster than you can copy, send <span class="cw" style="display:inline;font-size:inherit;font-weight:700;">QRS</span> ("slow down") or simply <span class="cw" style="display:inline;font-size:inherit;font-weight:700;">?</span>. Almost every activator will slow down happily.</p>
+
+    <p class="body"><b>On minimum viable copy.</b> You do not need to decode every character. For a hunter, the entire exchange hinges on three things:</p>
+
+    <div class="min-copy">
+      <div class="mc">
+        <span class="mc-n">01</span>
+        <h4>Your own callsign coming back</h4>
+        <p>If the activator sends your call correctly, you are being worked. That's the handshake. If it comes back wrong, send your call again to correct it.</p>
+      </div>
+      <div class="mc">
+        <span class="mc-n">02</span>
+        <h4>A three-digit RST</h4>
+        <p>Almost always <span class="cw" style="display:inline;font-size:inherit;font-weight:700;">5NN</span> or <span class="cw" style="display:inline;font-size:inherit;font-weight:700;">599</span>. You are listening for a block of three numerals. Don't worry about their state — you can look up the operator's QTH later.</p>
+      </div>
+      <div class="mc">
+        <span class="mc-n">03</span>
+        <h4>BK</h4>
+        <p><span class="cw" style="display:inline;font-size:inherit;font-weight:700;">BK</span> = "your turn." When you hear it, send your RST and state. That's the whole game.</p>
+      </div>
+    </div>
+
+    <p class="body" style="margin-top:22px;">Everything else — the <span class="cw" style="display:inline;font-size:inherit;font-weight:700;">TU ES GM</span>, the pleasantries, the double-sent state — is decoration. Miss it all and you still have a valid QSO in the log.</p>
+
+    <h3 class="sub">On the question mark</h3>
+
+    <p class="body">The single most useful character in CW is <span class="cw" style="display:inline;font-size:inherit;font-weight:700;">?</span>. It means "I didn't copy that — please repeat." Sent alone, it's universally understood. Sent after a fragment, like <span class="cw" style="display:inline;font-size:inherit;font-weight:700;">W6?</span>, it means "I got W6, please send the rest again."</p>
+
+    <p class="body"><b>You will send <span class="cw" style="display:inline;font-size:inherit;font-weight:700;">?</span> constantly when you're starting out. Everyone does.</b> Experienced operators send it too. Asking for a repeat is not a confession of incompetence; it's just normal CW traffic. The only failure is sitting silent and letting a QSO collapse.</p>
+
+    <div class="chips" style="margin-top:14px;">
+      <span class="chip"><b>?</b> please repeat</span>
+      <span class="chip"><b>AGN?</b> again, please</span>
+      <span class="chip"><b>UR CALL?</b> what's your callsign?</span>
+      <span class="chip"><b>QRS</b> please slow down</span>
+      <span class="chip"><b>QRZ?</b> who is calling me?</span>
+    </div>
+
+    <div class="aside">
+      <b>Watch before you transmit</b>
+      The fastest way to build confidence is to watch a real activation. <a href="https://www.youtube.com/@K4SWL" target="_blank" rel="noopener">Thomas Witherspoon (K4SWL)</a> posts unedited, real-time POTA activations on YouTube — no cuts, no cleanup, every fumble and repeat preserved. Thirty minutes of his video teaches the rhythm better than any written guide, including this one.
+    </div>
+  </section>
+
+  <!-- ===================== §5 FINDING ACTIVATIONS ===================== -->
+  <section>
+    <div class="chapter">
+      <span class="num">V.</span>
+      <h2>Finding activations to hunt</h2>
+      <span class="folio">pp. 05</span>
+    </div>
+
+    <p class="lede">Hunters don't wander the bands hoping for luck. They watch the spots.</p>
+
+    <p class="body">Open <b>pota.app</b> in a browser and click <i>Spots</i>. Every active CW station in a park shows up there, with their frequency, callsign, park reference, and how fresh the spot is. Filter by mode = CW and you have a live list of people calling you to work them. Click a row, tune the radio, wait for them to finish their current QSO, and answer.</p>
+
+    <p class="body">A second channel runs in parallel: the <b>Reverse Beacon Network</b> (reversebeacon.net). Skimmers around the world decode CW CQs automatically. Activators who self-spot via RBNgate also land on pota.app within seconds. If you're an activator running QRP from a new park, the RBN is how the hunters find you.</p>
+
+    <p class="body">CW operators tend to congregate around these frequencies. Of these, <b>20 meters is the undisputed center of gravity for POTA</b> — it's where the most activators run, the most hunters listen, and the most contacts happen. If you have time for only one band, make it 20.</p>
+
+    <div class="freqs">
+      <table>
+        <thead>
+          <tr><th>Band</th><th>CW POTA calling area</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hero"><td>20 m<span class="star">★</span></td><td class="m">14.030 – 14.060 MHz</td><td>The most popular POTA band. Start here.</td></tr>
+          <tr><td>40 m</td><td class="m">7.030 – 7.060 MHz</td><td>Close second. Reliable regional workhorse.</td></tr>
+          <tr><td>30 m</td><td class="m">10.106 – 10.130 MHz</td><td>CW + digital only, no voice</td></tr>
+          <tr><td>17 m</td><td class="m">18.070 – 18.090 MHz</td><td>Quieter, cleaner, underused</td></tr>
+          <tr><td>15 m</td><td class="m">21.030 – 21.060 MHz</td><td>Best when the solar flux cooperates</td></tr>
+          <tr><td>80 m</td><td class="m">3.550 – 3.570 MHz</td><td>Evenings, regional</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== §6 LOGGING & UPLOADING ===================== -->
+  <section>
+    <div class="chapter">
+      <span class="num">VI.</span>
+      <h2>Logging &amp; uploading</h2>
+      <span class="folio">pp. 06</span>
+    </div>
+
+    <p class="lede">POTA runs on log submissions. Hunter credit is automatic. Activator credit requires a file upload. Here is the minimum each operator needs to capture.</p>
+
+    <p class="body"><b>Every QSO needs six fields:</b> the other operator's callsign, the date and time in UTC, the frequency or band, the mode (CW), the RST you sent, and the RST you received. Activators additionally need to tag the whole session with their park reference (e.g. <code>K-0802</code>) and, if the park is in more than one POTA entity, each reference gets logged separately.</p>
+
+    <div class="logbook">
+      <table>
+        <thead>
+          <tr><th>UTC</th><th>Call</th><th>Freq</th><th>Mode</th><th>Sent</th><th>Rcvd</th><th>Their QTH</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2026-04-17 1432</td><td>W6JY</td><td>14.058</td><td>CW</td><td>559</td><td>579</td><td>CA</td></tr>
+          <tr><td>2026-04-17 1433</td><td>K4SWL</td><td>14.058</td><td>CW</td><td>559</td><td>569</td><td>NC</td></tr>
+          <tr><td>2026-04-17 1434</td><td>VE3WMB</td><td>14.058</td><td>CW</td><td>569</td><td>579</td><td>ON</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <div>
+          <h4>Pick a logger</h4>
+          <p>A few good options, depending on platform and taste:</p>
+          <ul class="loggers">
+            <li><b><a href="https://carrierwave.app" target="_blank" rel="noopener">Carrier Wave</a></b> — native macOS/iOS app purpose-built for POTA and contest CW. Integrates with pota.app spots, handles park references automatically, and syncs across your devices.</li>
+            <li><b>Ham2K Portable Logger (POLO)</b> — iOS / Android / desktop. Excellent field UX. Popular with activators who log on a phone.</li>
+            <li><b>HAMRS</b> — free cross-platform desktop app. POTA-aware out of the box.</li>
+            <li><b>N3FJP</b> — Windows. Well-established. The choice if you already live in a Windows logging ecosystem.</li>
+            <li><b>Paper</b> — a waterproof notebook and a pencil. Transcribe to ADIF when you get home. Never runs out of battery, never crashes, never asks for an OS update. Thomas K4SWL has run paper logs for years and makes a <a href="https://qrper.com/2026/03/pota-and-sota-why-i-still-log-to-paper/" target="_blank" rel="noopener">compelling case</a> that it keeps you focused on the radio instead of the screen.</li>
+          </ul>
+          <p style="margin-top:10px;">All of them (except paper) export <code>.adi</code> (ADIF), which is what pota.app wants.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Log in real time, not from memory</h4>
+          <p>Write down the callsign <em>as you copy it</em>. The exchange is short but you will forget the third QSO by the time the fifth finishes. Times are UTC — set your logger to UTC once and never think about it again.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Export to ADIF</h4>
+          <p>After the activation, export the session to a <code>.adi</code> file. Double-check that every record has <code>STATION_CALLSIGN</code> (you), <code>MY_SIG_INFO</code> or <code>POTA_REF</code> (the park), and <code>CALL</code> (the hunter). Most POTA-aware loggers fill these automatically.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Upload to pota.app</h4>
+          <p>Sign in. Click <i>My Stats</i> → <i>Submit Logs</i>. Pick the park reference, the UTC date, and drop in your <code>.adi</code>. The system parses the file, shows you a preview, and posts the activation within minutes. Hunters get their credit the moment your upload is processed.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Hunters: do nothing</h4>
+          <p>Seriously. POTA doesn't want your log. Hunter credit comes from the activator's submission matching your callsign. You can still track personal stats by exporting your own log to <b>LoTW</b> or <b>QRZ</b>, but that's for you — not for POTA.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="aside">
+      <b>Common rejection · call busted</b>
+      If the activator copies your call wrong, your QSO lands in their log under a call that isn't yours, and you don't get credit. There's nothing you can do from your end. It's why activators often send the hunter's call back fully before giving a report — so the hunter can correct them on the spot.
+    </div>
+  </section>
+
+  <!-- ===================== COLOPHON ===================== -->
+  <div class="morse-rule">
+    <hr/>
+    <span class="m">·─·   ─·─·   ·─·   ─</span>
+    <hr/>
+  </div>
+
+  <section class="colophon">
+    <p class="sign">
+      Compiled by <b>Jay · W6JY</b>,<br/>
+      operating from the San Francisco Bay Area.
+    </p>
+
+    <p class="correspondence">
+      Corrections, disputes, or better frequencies?<br/>
+      <a href="mailto:jaysvana@gmail.com">Drop me a line.</a>
+    </p>
+
+    <p class="dedication">
+      With thanks to the volunteers keeping the registry alive at
+      <a href="https://parksontheair.com" target="_blank" rel="noopener">parksontheair.com</a>, and to
+      <a href="https://www.youtube.com/@K4SWL" target="_blank" rel="noopener">Thomas K4SWL</a>,
+      who teaches by doing.
+    </p>
+
+    <p class="dits">· · &nbsp; · ·</p>
+  </section>
+
+  <footer>
+    <span>Issued from the field · April 2026 <em>· 72 es 73</em></span>
+    <span>End of volume</span>
+  </footer>
+
+</main>
+</body>
+</html>
