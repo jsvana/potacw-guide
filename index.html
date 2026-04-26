@@ -700,6 +700,42 @@
     color: var(--ink);
   }
 
+  /* ===== Jump button (masthead CTA) ===== */
+  .jump-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 9px 14px 9px 16px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--ar);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 9px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .jump-btn:hover {
+    background: var(--moss);
+    border-color: var(--moss);
+    color: var(--paper);
+  }
+  .jump-btn .arrow {
+    color: var(--tan);
+    font-family: var(--mn);
+    font-size: 14px;
+    letter-spacing: 0;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .jump-btn:hover .arrow {
+    color: var(--paper);
+    transform: translateX(2px);
+  }
+
   /* ===== Cheat sheet form ===== */
   .cheat-form {
     margin-top: 22px;
@@ -822,6 +858,10 @@
       <div>Mode <b>CW · A1A</b></div>
       <div>Program <b>parksontheair.com</b></div>
     </div>
+    <a class="jump-btn" href="#cheat">
+      <span>Skip to the cheat sheet</span>
+      <span class="arrow">→</span>
+    </a>
   </header>
 
   <!-- ===================== §1 WHAT IS POTA ===================== -->
@@ -1021,26 +1061,26 @@
   </section>
 
   <!-- ===================== §4 CHEAT SHEET ===================== -->
-  <section>
+  <section id="cheat">
     <div class="chapter">
       <span class="num">IV.</span>
       <h2>The cheat sheet</h2>
       <span class="folio">pp. 04</span>
     </div>
 
-    <p class="lede">Plug in callsigns, pick a side, and the manual rewrites itself for the QSO you're about to have. Print it, tape it to the rig, work the script.</p>
+    <p class="lede">Plug in callsigns, pick a side, and the manual rewrites itself for the QSO you're about to have. Print it, tape it to the rig, work the script. The URL updates as you type — bookmark or share it to come back to the same setup.</p>
 
     <form class="cheat-form" id="cheat-form" autocomplete="off">
       <div class="role-row">
-        <span class="role-label">Role</span>
+        <span class="role-label">I am the</span>
         <label><input type="radio" name="role" value="activator" checked> Activator</label>
         <label><input type="radio" name="role" value="hunter"> Hunter</label>
       </div>
       <div class="grid">
-        <label class="field"><span>Your callsign</span><input type="text" name="my-call" value="N1RWJ" maxlength="10" spellcheck="false" /></label>
-        <label class="field"><span>Their callsign</span><input type="text" name="their-call" value="W6JY" maxlength="10" spellcheck="false" /></label>
-        <label class="field"><span>Your state / prov</span><input type="text" name="my-state" value="RI" maxlength="4" spellcheck="false" /></label>
-        <label class="field"><span>Their state / prov</span><input type="text" name="their-state" value="CA" maxlength="4" spellcheck="false" /></label>
+        <label class="field"><span>Activator callsign</span><input type="text" name="activator" value="N1RWJ" maxlength="10" spellcheck="false" /></label>
+        <label class="field"><span>Hunter callsign</span><input type="text" name="hunter" value="W6JY" maxlength="10" spellcheck="false" /></label>
+        <label class="field"><span>Activator state / prov</span><input type="text" name="activator_state" value="RI" maxlength="4" spellcheck="false" /></label>
+        <label class="field"><span>Hunter state / prov</span><input type="text" name="hunter_state" value="CA" maxlength="4" spellcheck="false" /></label>
       </div>
     </form>
 
@@ -1285,6 +1325,8 @@
   var output = document.getElementById('cheat-output');
   if (!form || !output) return;
 
+  var FIELDS = ['activator', 'hunter', 'activator_state', 'hunter_state'];
+
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -1298,9 +1340,37 @@
     return v || fallback;
   }
 
-  function role() {
+  function getRole() {
     var r = form.querySelector('[name="role"]:checked');
-    return r ? r.value : 'activator';
+    return r && r.value === 'hunter' ? 'hunter' : 'activator';
+  }
+
+  function applyUrlParams() {
+    var params = new URLSearchParams(window.location.search);
+    var role = params.get('role');
+    if (role === 'activator' || role === 'hunter') {
+      var radio = form.querySelector('[name="role"][value="' + role + '"]');
+      if (radio) radio.checked = true;
+    }
+    FIELDS.forEach(function (name) {
+      if (params.has(name)) {
+        var input = form.querySelector('[name="' + name + '"]');
+        if (input) input.value = params.get(name).toUpperCase();
+      }
+    });
+  }
+
+  function syncUrl() {
+    var params = new URLSearchParams();
+    params.set('role', getRole());
+    FIELDS.forEach(function (name) {
+      var input = form.querySelector('[name="' + name + '"]');
+      if (input && input.value.trim()) {
+        params.set(name, input.value.trim().toUpperCase());
+      }
+    });
+    var newUrl = window.location.pathname + '?' + params.toString() + window.location.hash;
+    window.history.replaceState(null, '', newUrl);
   }
 
   function lineHtml(kind, call, cw) {
@@ -1313,46 +1383,56 @@
       '</div>' +
       '<div class="line-body"><div class="cw">' + escapeHtml(cw) + '</div></div>' +
       '</div>';
-  }
+    }
 
   function render() {
-    var r = role();
-    var my = clean('my-call', 'YOURCALL');
-    var them = clean('their-call', 'THEIRCALL');
-    var myS = clean('my-state', 'ST');
-    var theirS = clean('their-state', 'ST');
-    var isAct = r === 'activator';
+    var role = getRole();
+    var act = clean('activator', 'ACTIVATOR');
+    var hun = clean('hunter', 'HUNTER');
+    var actS = clean('activator_state', 'ST');
+    var hunS = clean('hunter_state', 'ST');
+    var isAct = role === 'activator';
+    var me = isAct ? act : hun;
+    var them = isAct ? hun : act;
+    var myS = isAct ? actS : hunS;
+    var theirS = isAct ? hunS : actS;
 
     var head = '<div class="qso-head">' +
       '<span>' + (isAct ? 'Activator script' : 'Hunter script') + '</span>' +
-      '<span>' + escapeHtml(my) + ' ↔ ' + escapeHtml(them) + '</span>' +
+      '<span>' + escapeHtml(act) + ' ↔ ' + escapeHtml(hun) + '</span>' +
       '<span class="freq">CW</span>' +
       '</div>';
 
     var body;
     if (isAct) {
       body =
-        lineHtml('send', my,   'CQ CQ POTA DE ' + my + ' K') +
+        lineHtml('send', me,   'CQ CQ POTA DE ' + me + ' K') +
         lineHtml('hear', them, them) +
-        lineHtml('send', my,   them + ' TU ES GM UR 599 599 ' + myS + ' ' + myS + ' BK') +
+        lineHtml('send', me,   them + ' TU ES GM UR 599 599 ' + myS + ' ' + myS + ' BK') +
         lineHtml('hear', them, 'BK RR TU ES GM UR 5NN 5NN ' + theirS + ' ' + theirS + ' BK') +
-        lineHtml('send', my,   'BK RR TU ' + theirS + ' ES 73 EE') +
+        lineHtml('send', me,   'BK RR TU ' + theirS + ' ES 73 EE') +
         lineHtml('hear', them, 'EE');
     } else {
       body =
         lineHtml('hear', them, 'CQ CQ POTA DE ' + them + ' K') +
-        lineHtml('send', my,   my) +
-        lineHtml('hear', them, my + ' TU ES GM UR 5NN 5NN ' + theirS + ' ' + theirS + ' BK') +
-        lineHtml('send', my,   'BK RR TU ES GM UR 599 599 ' + myS + ' ' + myS + ' BK') +
+        lineHtml('send', me,   me) +
+        lineHtml('hear', them, me + ' TU ES GM UR 5NN 5NN ' + theirS + ' ' + theirS + ' BK') +
+        lineHtml('send', me,   'BK RR TU ES GM UR 599 599 ' + myS + ' ' + myS + ' BK') +
         lineHtml('hear', them, 'BK RR TU ' + myS + ' ES 73 EE') +
-        lineHtml('send', my,   'EE');
+        lineHtml('send', me,   'EE');
     }
 
     output.innerHTML = head + body;
   }
 
-  form.addEventListener('input', render);
-  form.addEventListener('change', render);
+  function update() {
+    syncUrl();
+    render();
+  }
+
+  applyUrlParams();
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
   render();
 })();
 </script>
