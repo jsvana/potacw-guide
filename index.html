@@ -700,6 +700,124 @@
     color: var(--ink);
   }
 
+  /* ===== Jump button (masthead CTA) ===== */
+  .jump-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 9px 14px 9px 16px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--ar);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 9px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .jump-btn:hover {
+    background: var(--moss);
+    border-color: var(--moss);
+    color: var(--paper);
+  }
+  .jump-btn .arrow {
+    color: var(--tan);
+    font-family: var(--mn);
+    font-size: 14px;
+    letter-spacing: 0;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+  .jump-btn:hover .arrow {
+    color: var(--paper);
+    transform: translateX(2px);
+  }
+
+  /* ===== Cheat sheet form ===== */
+  .cheat-form {
+    margin-top: 22px;
+    padding: 18px 20px 20px;
+    border: 1px solid var(--ink);
+    background: var(--paper-2);
+    position: relative;
+    display: grid;
+    gap: 14px;
+  }
+  .cheat-form::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 0.5px solid var(--rule);
+    pointer-events: none;
+  }
+  .cheat-form .role-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 16px;
+    padding-bottom: 12px;
+    border-bottom: 0.5px dashed var(--rule);
+  }
+  .cheat-form .role-row .role-label {
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--tan-deep);
+  }
+  .cheat-form .role-row label {
+    font-family: var(--ar);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+  .cheat-form .role-row input[type="radio"] { accent-color: var(--moss); }
+  .cheat-form .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 18px;
+  }
+  @media (max-width: 540px) {
+    .cheat-form .grid { grid-template-columns: 1fr; }
+  }
+  .cheat-form .field {
+    display: grid;
+    gap: 4px;
+  }
+  .cheat-form .field span {
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .cheat-form input[type="text"] {
+    font-family: var(--mn);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: var(--paper);
+    border: 0.5px solid var(--rule);
+    padding: 8px 10px;
+    color: var(--ink);
+    width: 100%;
+    border-radius: 0;
+  }
+  .cheat-form input[type="text"]:focus {
+    outline: 1.5px solid var(--moss);
+    outline-offset: 0;
+    border-color: var(--moss);
+  }
+
   /* dropcap for chapter 1 */
   .dropcap::first-letter {
     font-family: var(--fr);
@@ -740,6 +858,10 @@
       <div>Mode <b>CW · A1A</b></div>
       <div>Program <b>parksontheair.com</b></div>
     </div>
+    <a class="jump-btn" href="#cheat">
+      <span>Skip to the cheat sheet</span>
+      <span class="arrow">→</span>
+    </a>
   </header>
 
   <!-- ===================== §1 WHAT IS POTA ===================== -->
@@ -938,12 +1060,44 @@
     </div>
   </section>
 
-  <!-- ===================== §4 YOU ALREADY KNOW ENOUGH ===================== -->
-  <section>
+  <!-- ===================== §4 CHEAT SHEET ===================== -->
+  <section id="cheat">
     <div class="chapter">
       <span class="num">IV.</span>
-      <h2>You already know enough</h2>
+      <h2>The cheat sheet</h2>
       <span class="folio">pp. 04</span>
+    </div>
+
+    <p class="lede">Plug in callsigns, pick a side, and the manual rewrites itself for the QSO you're about to have. Print it, tape it to the rig, work the script. The URL updates as you type — bookmark or share it to come back to the same setup.</p>
+
+    <form class="cheat-form" id="cheat-form" autocomplete="off">
+      <div class="role-row">
+        <span class="role-label">I am the</span>
+        <label><input type="radio" name="role" value="activator" checked> Activator</label>
+        <label><input type="radio" name="role" value="hunter"> Hunter</label>
+      </div>
+      <div class="grid">
+        <label class="field"><span>Activator callsign</span><input type="text" name="activator" value="N1RWJ" maxlength="10" spellcheck="false" /></label>
+        <label class="field"><span>Hunter callsign</span><input type="text" name="hunter" value="W6JY" maxlength="10" spellcheck="false" /></label>
+        <label class="field"><span>Activator state / prov</span><input type="text" name="activator_state" value="RI" maxlength="4" spellcheck="false" /></label>
+        <label class="field"><span>Hunter state / prov</span><input type="text" name="hunter_state" value="CA" maxlength="4" spellcheck="false" /></label>
+      </div>
+    </form>
+
+    <div class="qso" id="cheat-output" aria-live="polite"></div>
+
+    <div class="aside">
+      <b>How to read this</b>
+      Lines marked <span style="font-family:var(--ar);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--moss);">Send</span> are yours to key — your fist on the paddle. Lines marked <span style="font-family:var(--ar);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--tan-deep);">Hear</span> are what the other operator should send back; if you copy something close enough, you're on track. The exchange runs top to bottom in order.
+    </div>
+  </section>
+
+  <!-- ===================== §5 YOU ALREADY KNOW ENOUGH ===================== -->
+  <section>
+    <div class="chapter">
+      <span class="num">V.</span>
+      <h2>You already know enough</h2>
+      <span class="folio">pp. 05</span>
     </div>
 
     <p class="lede">Newcomers read through a decoded exchange and decide they aren't ready. They are. POTA CW is the most forgiving Morse environment you will ever find — slower, warmer, and designed for people learning on the air.</p>
@@ -994,12 +1148,12 @@
     </div>
   </section>
 
-  <!-- ===================== §5 FINDING ACTIVATIONS ===================== -->
+  <!-- ===================== §6 FINDING ACTIVATIONS ===================== -->
   <section>
     <div class="chapter">
-      <span class="num">V.</span>
+      <span class="num">VI.</span>
       <h2>Finding activations to hunt</h2>
-      <span class="folio">pp. 05</span>
+      <span class="folio">pp. 06</span>
     </div>
 
     <p class="lede">Hunters don't wander the bands hoping for luck. They watch the spots.</p>
@@ -1058,12 +1212,12 @@
     </ol>
   </section>
 
-  <!-- ===================== §6 LOGGING & UPLOADING ===================== -->
+  <!-- ===================== §7 LOGGING & UPLOADING ===================== -->
   <section>
     <div class="chapter">
-      <span class="num">VI.</span>
+      <span class="num">VII.</span>
       <h2>Logging &amp; uploading</h2>
-      <span class="folio">pp. 06</span>
+      <span class="folio">pp. 07</span>
     </div>
 
     <p class="lede">POTA runs on log submissions. Activator credit requires a file upload; hunter credit is automatic once the activator uploads theirs. Here is the minimum each operator needs to capture.</p>
@@ -1164,5 +1318,123 @@
   </footer>
 
 </main>
+
+<script>
+(function () {
+  var form = document.getElementById('cheat-form');
+  var output = document.getElementById('cheat-output');
+  if (!form || !output) return;
+
+  var FIELDS = ['activator', 'hunter', 'activator_state', 'hunter_state'];
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function clean(name, fallback) {
+    var el = form.querySelector('[name="' + name + '"]');
+    if (!el) return fallback;
+    var v = el.value.replace(/\s+/g, '').toUpperCase();
+    return v || fallback;
+  }
+
+  function getRole() {
+    var r = form.querySelector('[name="role"]:checked');
+    return r && r.value === 'hunter' ? 'hunter' : 'activator';
+  }
+
+  function applyUrlParams() {
+    var params = new URLSearchParams(window.location.search);
+    var role = params.get('role');
+    if (role === 'activator' || role === 'hunter') {
+      var radio = form.querySelector('[name="role"][value="' + role + '"]');
+      if (radio) radio.checked = true;
+    }
+    FIELDS.forEach(function (name) {
+      if (params.has(name)) {
+        var input = form.querySelector('[name="' + name + '"]');
+        if (input) input.value = params.get(name).toUpperCase();
+      }
+    });
+  }
+
+  function syncUrl() {
+    var params = new URLSearchParams();
+    params.set('role', getRole());
+    FIELDS.forEach(function (name) {
+      var input = form.querySelector('[name="' + name + '"]');
+      if (input && input.value.trim()) {
+        params.set(name, input.value.trim().toUpperCase());
+      }
+    });
+    var newUrl = window.location.pathname + '?' + params.toString() + window.location.hash;
+    window.history.replaceState(null, '', newUrl);
+  }
+
+  function lineHtml(kind, call, cw) {
+    var who = kind === 'send' ? 'Send' : 'Hear';
+    var cls = kind === 'send' ? 'who act' : 'who';
+    return '<div class="line">' +
+      '<div class="line-label">' +
+      '<span class="' + cls + '">' + who + '</span>' +
+      '<span class="call">' + escapeHtml(call) + '</span>' +
+      '</div>' +
+      '<div class="line-body"><div class="cw">' + escapeHtml(cw) + '</div></div>' +
+      '</div>';
+    }
+
+  function render() {
+    var role = getRole();
+    var act = clean('activator', 'ACTIVATOR');
+    var hun = clean('hunter', 'HUNTER');
+    var actS = clean('activator_state', 'ST');
+    var hunS = clean('hunter_state', 'ST');
+    var isAct = role === 'activator';
+    var me = isAct ? act : hun;
+    var them = isAct ? hun : act;
+    var myS = isAct ? actS : hunS;
+    var theirS = isAct ? hunS : actS;
+
+    var head = '<div class="qso-head">' +
+      '<span>' + (isAct ? 'Activator script' : 'Hunter script') + '</span>' +
+      '<span>' + escapeHtml(act) + ' ↔ ' + escapeHtml(hun) + '</span>' +
+      '<span class="freq">CW</span>' +
+      '</div>';
+
+    var body;
+    if (isAct) {
+      body =
+        lineHtml('send', me,   'CQ CQ POTA DE ' + me + ' K') +
+        lineHtml('hear', them, them) +
+        lineHtml('send', me,   them + ' TU ES GM UR 599 599 ' + myS + ' ' + myS + ' BK') +
+        lineHtml('hear', them, 'BK RR TU ES GM UR 5NN 5NN ' + theirS + ' ' + theirS + ' BK') +
+        lineHtml('send', me,   'BK RR TU ' + theirS + ' ES 73 EE') +
+        lineHtml('hear', them, 'EE');
+    } else {
+      body =
+        lineHtml('hear', them, 'CQ CQ POTA DE ' + them + ' K') +
+        lineHtml('send', me,   me) +
+        lineHtml('hear', them, me + ' TU ES GM UR 5NN 5NN ' + theirS + ' ' + theirS + ' BK') +
+        lineHtml('send', me,   'BK RR TU ES GM UR 599 599 ' + myS + ' ' + myS + ' BK') +
+        lineHtml('hear', them, 'BK RR TU ' + myS + ' ES 73 EE') +
+        lineHtml('send', me,   'EE');
+    }
+
+    output.innerHTML = head + body;
+  }
+
+  function update() {
+    syncUrl();
+    render();
+  }
+
+  applyUrlParams();
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+  render();
+})();
+</script>
 </body>
 </html>
