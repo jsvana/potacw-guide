@@ -700,6 +700,88 @@
     color: var(--ink);
   }
 
+  /* ===== Cheat sheet form ===== */
+  .cheat-form {
+    margin-top: 22px;
+    padding: 18px 20px 20px;
+    border: 1px solid var(--ink);
+    background: var(--paper-2);
+    position: relative;
+    display: grid;
+    gap: 14px;
+  }
+  .cheat-form::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 0.5px solid var(--rule);
+    pointer-events: none;
+  }
+  .cheat-form .role-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 16px;
+    padding-bottom: 12px;
+    border-bottom: 0.5px dashed var(--rule);
+  }
+  .cheat-form .role-row .role-label {
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--tan-deep);
+  }
+  .cheat-form .role-row label {
+    font-family: var(--ar);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+  .cheat-form .role-row input[type="radio"] { accent-color: var(--moss); }
+  .cheat-form .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 18px;
+  }
+  @media (max-width: 540px) {
+    .cheat-form .grid { grid-template-columns: 1fr; }
+  }
+  .cheat-form .field {
+    display: grid;
+    gap: 4px;
+  }
+  .cheat-form .field span {
+    font-family: var(--ar);
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .cheat-form input[type="text"] {
+    font-family: var(--mn);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: var(--paper);
+    border: 0.5px solid var(--rule);
+    padding: 8px 10px;
+    color: var(--ink);
+    width: 100%;
+    border-radius: 0;
+  }
+  .cheat-form input[type="text"]:focus {
+    outline: 1.5px solid var(--moss);
+    outline-offset: 0;
+    border-color: var(--moss);
+  }
+
   /* dropcap for chapter 1 */
   .dropcap::first-letter {
     font-family: var(--fr);
@@ -938,12 +1020,44 @@
     </div>
   </section>
 
-  <!-- ===================== §4 YOU ALREADY KNOW ENOUGH ===================== -->
+  <!-- ===================== §4 CHEAT SHEET ===================== -->
   <section>
     <div class="chapter">
       <span class="num">IV.</span>
-      <h2>You already know enough</h2>
+      <h2>The cheat sheet</h2>
       <span class="folio">pp. 04</span>
+    </div>
+
+    <p class="lede">Plug in callsigns, pick a side, and the manual rewrites itself for the QSO you're about to have. Print it, tape it to the rig, work the script.</p>
+
+    <form class="cheat-form" id="cheat-form" autocomplete="off">
+      <div class="role-row">
+        <span class="role-label">Role</span>
+        <label><input type="radio" name="role" value="activator" checked> Activator</label>
+        <label><input type="radio" name="role" value="hunter"> Hunter</label>
+      </div>
+      <div class="grid">
+        <label class="field"><span>Your callsign</span><input type="text" name="my-call" value="N1RWJ" maxlength="10" spellcheck="false" /></label>
+        <label class="field"><span>Their callsign</span><input type="text" name="their-call" value="W6JY" maxlength="10" spellcheck="false" /></label>
+        <label class="field"><span>Your state / prov</span><input type="text" name="my-state" value="RI" maxlength="4" spellcheck="false" /></label>
+        <label class="field"><span>Their state / prov</span><input type="text" name="their-state" value="CA" maxlength="4" spellcheck="false" /></label>
+      </div>
+    </form>
+
+    <div class="qso" id="cheat-output" aria-live="polite"></div>
+
+    <div class="aside">
+      <b>How to read this</b>
+      Lines marked <span style="font-family:var(--ar);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--moss);">Send</span> are yours to key — your fist on the paddle. Lines marked <span style="font-family:var(--ar);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--tan-deep);">Hear</span> are what the other operator should send back; if you copy something close enough, you're on track. The exchange runs top to bottom in order.
+    </div>
+  </section>
+
+  <!-- ===================== §5 YOU ALREADY KNOW ENOUGH ===================== -->
+  <section>
+    <div class="chapter">
+      <span class="num">V.</span>
+      <h2>You already know enough</h2>
+      <span class="folio">pp. 05</span>
     </div>
 
     <p class="lede">Newcomers read through a decoded exchange and decide they aren't ready. They are. POTA CW is the most forgiving Morse environment you will ever find — slower, warmer, and designed for people learning on the air.</p>
@@ -994,12 +1108,12 @@
     </div>
   </section>
 
-  <!-- ===================== §5 FINDING ACTIVATIONS ===================== -->
+  <!-- ===================== §6 FINDING ACTIVATIONS ===================== -->
   <section>
     <div class="chapter">
-      <span class="num">V.</span>
+      <span class="num">VI.</span>
       <h2>Finding activations to hunt</h2>
-      <span class="folio">pp. 05</span>
+      <span class="folio">pp. 06</span>
     </div>
 
     <p class="lede">Hunters don't wander the bands hoping for luck. They watch the spots.</p>
@@ -1058,12 +1172,12 @@
     </ol>
   </section>
 
-  <!-- ===================== §6 LOGGING & UPLOADING ===================== -->
+  <!-- ===================== §7 LOGGING & UPLOADING ===================== -->
   <section>
     <div class="chapter">
-      <span class="num">VI.</span>
+      <span class="num">VII.</span>
       <h2>Logging &amp; uploading</h2>
-      <span class="folio">pp. 06</span>
+      <span class="folio">pp. 07</span>
     </div>
 
     <p class="lede">POTA runs on log submissions. Activator credit requires a file upload; hunter credit is automatic once the activator uploads theirs. Here is the minimum each operator needs to capture.</p>
@@ -1164,5 +1278,83 @@
   </footer>
 
 </main>
+
+<script>
+(function () {
+  var form = document.getElementById('cheat-form');
+  var output = document.getElementById('cheat-output');
+  if (!form || !output) return;
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function clean(name, fallback) {
+    var el = form.querySelector('[name="' + name + '"]');
+    if (!el) return fallback;
+    var v = el.value.replace(/\s+/g, '').toUpperCase();
+    return v || fallback;
+  }
+
+  function role() {
+    var r = form.querySelector('[name="role"]:checked');
+    return r ? r.value : 'activator';
+  }
+
+  function lineHtml(kind, call, cw) {
+    var who = kind === 'send' ? 'Send' : 'Hear';
+    var cls = kind === 'send' ? 'who act' : 'who';
+    return '<div class="line">' +
+      '<div class="line-label">' +
+      '<span class="' + cls + '">' + who + '</span>' +
+      '<span class="call">' + escapeHtml(call) + '</span>' +
+      '</div>' +
+      '<div class="line-body"><div class="cw">' + escapeHtml(cw) + '</div></div>' +
+      '</div>';
+  }
+
+  function render() {
+    var r = role();
+    var my = clean('my-call', 'YOURCALL');
+    var them = clean('their-call', 'THEIRCALL');
+    var myS = clean('my-state', 'ST');
+    var theirS = clean('their-state', 'ST');
+    var isAct = r === 'activator';
+
+    var head = '<div class="qso-head">' +
+      '<span>' + (isAct ? 'Activator script' : 'Hunter script') + '</span>' +
+      '<span>' + escapeHtml(my) + ' ↔ ' + escapeHtml(them) + '</span>' +
+      '<span class="freq">CW</span>' +
+      '</div>';
+
+    var body;
+    if (isAct) {
+      body =
+        lineHtml('send', my,   'CQ CQ POTA DE ' + my + ' K') +
+        lineHtml('hear', them, them) +
+        lineHtml('send', my,   them + ' TU ES GM UR 599 599 ' + myS + ' ' + myS + ' BK') +
+        lineHtml('hear', them, 'BK RR TU ES GM UR 5NN 5NN ' + theirS + ' ' + theirS + ' BK') +
+        lineHtml('send', my,   'BK RR TU ' + theirS + ' ES 73 EE') +
+        lineHtml('hear', them, 'EE');
+    } else {
+      body =
+        lineHtml('hear', them, 'CQ CQ POTA DE ' + them + ' K') +
+        lineHtml('send', my,   my) +
+        lineHtml('hear', them, my + ' TU ES GM UR 5NN 5NN ' + theirS + ' ' + theirS + ' BK') +
+        lineHtml('send', my,   'BK RR TU ES GM UR 599 599 ' + myS + ' ' + myS + ' BK') +
+        lineHtml('hear', them, 'BK RR TU ' + myS + ' ES 73 EE') +
+        lineHtml('send', my,   'EE');
+    }
+
+    output.innerHTML = head + body;
+  }
+
+  form.addEventListener('input', render);
+  form.addEventListener('change', render);
+  render();
+})();
+</script>
 </body>
 </html>
