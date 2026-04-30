@@ -603,6 +603,27 @@
     letter-spacing: 0.1em;
   }
 
+  /* ===== Zero-beat diagram ===== */
+  .zero-beat-figure {
+    margin: 22px 0 18px;
+  }
+  .zero-beat-figure svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--ink);
+    background: var(--paper-2);
+  }
+  .zero-beat-figure figcaption {
+    margin-top: 10px;
+    font-family: var(--fr);
+    font-variation-settings: "opsz" 24;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    text-align: center;
+  }
+
   /* ===== Dit-dah divider ===== */
   .morse-rule {
     margin: 64px 0 0;
@@ -1178,6 +1199,111 @@
           <tr><td>80 m</td><td class="m">3.550 – 3.570 MHz</td><td>Evenings, regional</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <h3 class="sub">Don't zero-beat the activator</h3>
+
+    <p class="body">When you answer a CQ, the obvious move is to tune your transmit frequency exactly onto the activator's — to <i>zero-beat</i> them. With nobody else calling, that works fine. In a pileup it's a quiet disaster.</p>
+
+    <p class="body">CW is binary: the carrier is either on or off. When two or three hunters all transmit on the same frequency at the same instant, their dits and dahs arrive at the activator's ear as a <em>single</em> audio pitch — overlapping, mashing, indistinguishable from a single garbled signal. Even just two simultaneous zero-beat callers can be impossible to copy.</p>
+
+    <p class="body"><b>The fix.</b> Offset your transmit frequency by 50–100 Hz from the activator using your radio's <b>XIT</b> (transmit incremental tuning) or split mode. Stay within about ±100 Hz so you remain inside the activator's narrow CW filter (often 200 Hz wide). Each hunter then arrives at a slightly different audio pitch — say 520 Hz, 620 Hz, 680 Hz — and the activator can pull individual callsigns out of the pile by tuning between them.</p>
+
+    <figure class="zero-beat-figure">
+      <svg viewBox="0 0 720 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="zb-title zb-desc">
+        <title id="zb-title">Zero beat pileup versus offset pileup</title>
+        <desc id="zb-desc">Three hunters calling at exactly the same frequency arrive at the activator's ear as a single mashed tone. Three hunters offsetting by 50 to 200 Hz arrive as three distinct pitches the activator can separate.</desc>
+
+        <defs>
+          <marker id="zb-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#1d2a1a"/>
+          </marker>
+        </defs>
+
+        <!-- ===== PANEL A: ZERO BEAT (DON'T) ===== -->
+        <g>
+          <rect x="0" y="0" width="720" height="40" fill="#1d2a1a"/>
+          <text x="20" y="26" font-family="Archivo, sans-serif" font-weight="700" font-size="13" letter-spacing="3" fill="#f1ead7">FIG. 1 · ZERO BEAT — DON'T</text>
+          <text x="700" y="26" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" letter-spacing="3" fill="#b9966a">SAME PITCH = ONE MUSHED TONE</text>
+
+          <line x1="40" y1="180" x2="320" y2="180" stroke="#1d2a1a" stroke-width="1"/>
+          <line x1="40" y1="178" x2="40" y2="184" stroke="#1d2a1a" stroke-width="1"/>
+          <line x1="320" y1="178" x2="320" y2="184" stroke="#1d2a1a" stroke-width="1"/>
+
+          <line x1="180" y1="180" x2="180" y2="190" stroke="#9a4a2a" stroke-width="1"/>
+          <text x="180" y="206" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#9a4a2a">14.058 MHz</text>
+          <text x="180" y="222" text-anchor="middle" font-family="Archivo, sans-serif" font-size="9" letter-spacing="2" fill="#6a7a3a">ACTIVATOR</text>
+
+          <line x1="178" y1="180" x2="178" y2="92" stroke="#3f5a2e" stroke-width="6" opacity="0.8"/>
+          <line x1="180" y1="180" x2="180" y2="80" stroke="#9a4a2a" stroke-width="6" opacity="0.85"/>
+          <line x1="182" y1="180" x2="182" y2="98" stroke="#8a6a3f" stroke-width="6" opacity="0.8"/>
+
+          <text x="180" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#1d2a1a">W6JY · K4SWL · VE3WMB</text>
+
+          <path d="M 340 130 L 380 130" stroke="#1d2a1a" stroke-width="1.2" fill="none" marker-end="url(#zb-arr)"/>
+
+<path d="M 400 130 q 9 -22 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0" fill="none" stroke="#3f5a2e" stroke-width="1.8" opacity="0.85"/>
+          <path d="M 404 130 q 9 -22 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0" fill="none" stroke="#9a4a2a" stroke-width="1.8" opacity="0.85"/>
+          <path d="M 408 130 q 9 -22 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0" fill="none" stroke="#8a6a3f" stroke-width="1.8" opacity="0.85"/>
+
+          <text x="400" y="180" font-family="JetBrains Mono, monospace" font-size="10" fill="#9a4a2a">all ≈ 600 Hz</text>
+
+          <text x="400" y="214" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="600" font-size="15" fill="#1d2a1a">One garbled tone.</text>
+          <text x="400" y="234" font-family="Source Serif 4, Georgia, serif" font-size="13" fill="#2d3b26">Three callsigns piled on one</text>
+          <text x="400" y="252" font-family="Source Serif 4, Georgia, serif" font-size="13" fill="#2d3b26">pitch — uncopyable.</text>
+        </g>
+
+        <line x1="0" y1="280" x2="720" y2="280" stroke="#1d2a1a" stroke-width="0.5"/>
+
+        <!-- ===== PANEL B: OFFSET (DO) ===== -->
+        <g transform="translate(0,280)">
+          <rect x="0" y="0" width="720" height="40" fill="#3f5a2e"/>
+          <text x="20" y="26" font-family="Archivo, sans-serif" font-weight="700" font-size="13" letter-spacing="3" fill="#f1ead7">FIG. 2 · OFFSET 50–100 HZ — DO</text>
+          <text x="700" y="26" text-anchor="end" font-family="Archivo, sans-serif" font-size="11" letter-spacing="3" fill="#e7dfc6">DIFFERENT PITCH = SEPARABLE</text>
+
+          <line x1="40" y1="180" x2="320" y2="180" stroke="#1d2a1a" stroke-width="1"/>
+          <line x1="40" y1="178" x2="40" y2="184" stroke="#1d2a1a" stroke-width="1"/>
+          <line x1="320" y1="178" x2="320" y2="184" stroke="#1d2a1a" stroke-width="1"/>
+
+          <line x1="180" y1="180" x2="180" y2="190" stroke="#9a4a2a" stroke-width="1"/>
+          <text x="180" y="206" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="#9a4a2a">14.058 MHz</text>
+          <text x="180" y="222" text-anchor="middle" font-family="Archivo, sans-serif" font-size="9" letter-spacing="2" fill="#6a7a3a">ACTIVATOR</text>
+
+          <line x1="125" y1="180" x2="125" y2="100" stroke="#3f5a2e" stroke-width="4"/>
+          <text x="125" y="90" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="10" fill="#3f5a2e">W6JY</text>
+          <text x="125" y="76" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#6a7a3a">−80 Hz</text>
+
+          <line x1="195" y1="180" x2="195" y2="80" stroke="#8a6a3f" stroke-width="4"/>
+          <text x="195" y="70" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="10" fill="#8a6a3f">K4SWL</text>
+          <text x="195" y="56" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#6a7a3a">+20 Hz</text>
+
+          <line x1="235" y1="180" x2="235" y2="120" stroke="#9a4a2a" stroke-width="4"/>
+          <text x="235" y="110" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="10" fill="#9a4a2a">VE3WMB</text>
+          <text x="235" y="96" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#6a7a3a">+80 Hz</text>
+
+          <path d="M 340 130 L 380 130" stroke="#1d2a1a" stroke-width="1.2" fill="none" marker-end="url(#zb-arr)"/>
+
+<path d="M 400 95 q 14 -8 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0 t 28 0" fill="none" stroke="#3f5a2e" stroke-width="2"/>
+          <text x="638" y="99" font-family="JetBrains Mono, monospace" font-size="10" fill="#3f5a2e">520 Hz</text>
+
+          <path d="M 400 135 q 9 -8 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0 t 18 0" fill="none" stroke="#8a6a3f" stroke-width="2"/>
+          <text x="638" y="139" font-family="JetBrains Mono, monospace" font-size="10" fill="#8a6a3f">620 Hz</text>
+
+          <path d="M 400 175 q 6 -8 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0 t 12 0" fill="none" stroke="#9a4a2a" stroke-width="2"/>
+          <text x="638" y="179" font-family="JetBrains Mono, monospace" font-size="10" fill="#9a4a2a">680 Hz</text>
+
+          <text x="400" y="216" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="600" font-size="15" fill="#1d2a1a">Three distinct tones.</text>
+          <text x="400" y="236" font-family="Source Serif 4, Georgia, serif" font-size="13" fill="#2d3b26">Pick one, work it, then the next.</text>
+        </g>
+      </svg>
+      <figcaption>Same RF means same audio pitch. Offset by 50–200 Hz and each caller becomes its own note.</figcaption>
+    </figure>
+
+    <p class="body">When does it matter? Mostly in pileups. If an activator has called CQ to crickets for three rounds, zero-beat is fine — even helpful, since they may be tuned tight on themselves. But the moment more than one hunter is calling, your offset is what makes you copyable.</p>
+
+    <div class="aside">
+      <b>Hearing the difference</b>
+      <a href="https://youtu.be/YS1WVsspPrk" target="_blank" rel="noopener">This walkthrough</a> (thanks to WD4DAN!) demonstrates what an activator hears with and without offsets — the difference is visceral in a way text cannot capture. The pota.app docs cover the topic in their <i>Zero Beat Pileups</i> reference, and the community-maintained POTA CW Guide goes deeper on radio-specific XIT and split-mode setup.
     </div>
 
     <h3 class="sub">Claiming a frequency</h3>
